@@ -1,0 +1,68 @@
+/* dark mode */
+body.dark, header.dark{
+    color: #fff;
+    background: #333;
+}
+/* header */
+header{
+    width: 100%;
+    background: #fff;
+    position: sticky; top: 0;  /*헤더 재활용을 위해*/
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1rem 2rem;
+    z-index: 1;
+}
+header.active{
+    box-shadow: 0 0.1rem 0.7rem rgba(0, 0, 0, 0.3);
+}
+
+header .menu{
+    display: flex;
+    align-items: center;
+}
+
+/* navbar style */
+header .navbar ul{
+    display: flex;
+    align-items: center;
+}
+header .navbar ul li {
+    margin: 0 1rem;
+}
+header .navbar ul li a {
+    font-size: 1.5rem;
+    transition:  .2s;
+}
+header .navbar ul li .active,
+header .navbar ul li a:hover{
+    color: var(--primary-color);
+}
+
+/* mode */
+header .mode{
+    font-size: 2rem;
+    cursor: pointer;
+    transition: 1s;
+}
+header .mode i:not(.active){
+    display: none;
+}
+
+/* logo style */
+header .logo{
+    display: flex;
+    align-items: center;
+    font-size: 1.5rem;
+    transition: 0.2s;
+}
+header .logo i {
+    font-size: 3rem;
+    margin-right: .5rem;
+}
+
+header .logo:hover{
+    color: var(--primary-color);
+    letter-spacing: .1rem;
+}

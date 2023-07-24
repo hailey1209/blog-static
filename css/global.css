@@ -1,0 +1,32 @@
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700&family=Roboto+Condensed:ital,wght@0,400;0,700;1,400&display=swap');
+
+/* Brand color */
+:root{
+    --primary-color: orange;
+    --secondary-color: darkorange;
+    --header-height: 80px;
+}
+
+*{
+    box-sizing: border-box;
+}
+
+/* 마우스 드래그시 배경색 설정 */
+*::selection{
+    background: var(--primary-color);
+    color: #fff;
+}
+
+/* 수평 스크롤 제거 */
+html{
+    font-family: 'Roboto Condensed', sans-serif;
+    overflow-x: hidden;
+    scrollbar-width: none;  /* remove firfox scrollbar */
+}
+/* 스크롤바 제거 (스크롤바만 제거, 기능 유지)*/
+body{
+    -ms-overflow-style: none; /*IE and Edge*/
+}
+body::-webkit-scrollbar{ /*webkit-based browsers => crome*/
+    display: none; 
+}
