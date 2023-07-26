@@ -1,0 +1,21 @@
+/* animation effects */
+.up{
+    transform: translate(0, 3rem);
+    opacity: 0;
+}
+.down{
+    transform: translate(0 , -3rem);
+    opacity: 0;
+}
+.left{
+    transform: translate(3rem, 0);
+    opacity: 0;
+}
+.right{
+    transform: translate(-3rem, 0);
+    opacity: 0;
+}
+.show{
+    opacity: 1;
+    transform: none;
+}

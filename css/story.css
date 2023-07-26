@@ -1,0 +1,93 @@
+/* 재사용 가능한 css코드 */
+@import url('reset.css');
+@import url('global.css');
+@import url('header.css');
+@import url('footer.css');
+
+/* 시작하기 버튼 */
+header .navbar ul li a button{
+    width: 5rem;
+    height: 2rem;
+    background-color: var(--primary-color);
+    color: #fff;
+    border: none;
+    border-radius: 2rem;
+    cursor: pointer;
+    font-size: 0.8rem;
+    transition: 0.2s;
+}
+header .navbar ul li a button:hover{
+    background-color: var(--secondary-color);
+    letter-spacing: 0.1rem;
+}
+
+/* 검색창 */
+header .navbar ul li .search-container{
+    display: flex;
+}
+header .navbar ul li .search-container .search{
+    background-color: var(--primary-color);
+    color: #fff;
+    border: none;
+    cursor: pointer;
+}
+header .navbar ul li .search-container .search:hover{
+    background-color: var(--secondary-color);
+}
+header .navbar ul li .search-container .search span{
+    font-size: 1.5rem;
+    padding-top: 5px;
+}
+header .navbar ul li .search-container .keyword{
+    width: 20rem;
+    padding-left: .5rem;
+    border: 2px solid var(--primary-color);
+    outline: none;
+}
+header .navbar ul li .search-container .keyword::placeholder{
+    color: var(--primary-color);
+}
+header .navbar ul li .search-container .keyword:focus{
+    color: var(--secondary-color);
+}
+
+/* 카테고리 버튼 */
+.category-container.dark{
+    color: #fff;
+    background-color: #333;
+}
+.category-container{
+    width: 100vw;
+    background-color: #fff;
+    position: sticky;
+    top: var(--header-height);
+    z-index: 1;
+    padding: 1rem 2rem;
+}
+.category-container ul{
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+}
+.category-container ul li {
+    margin: 0.2rem 0.5rem;
+}
+.category-container ul li a button{
+    border: none;
+    background-color: #333;
+    color: #fff;
+    /* width: 5rem; */  /*글자 수에 따라서 너비가 유동적으로 변하도록*/
+    height: 2rem;
+    border-radius: 2rem;
+    cursor: pointer;
+    font-size: 1rem;
+    font-weight: 700;
+    padding: 0 1rem;
+    box-shadow: 0 0 .3rem rgba(255, 255, 255, 0.3);
+    transition: 0.2s;
+}
+.category-container ul li a button:hover{
+    background-color:  var(--secondary-color);
+    letter-spacing: 0.1rem;
+}
