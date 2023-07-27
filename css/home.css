@@ -72,6 +72,7 @@ header .navbar ul li img{
     padding: 2rem 1rem;
     margin-bottom: 2.5rem;
     box-shadow: 0 0 0.2rem rgba(0, 0, 0, 0.3);
+    transition: 0.5s;
 }
 .blog-container .blog > div > ul{
     display: flex;
