@@ -1,0 +1,256 @@
+@import url('reset.css');
+@import url('global.css');
+@import url('header.css');
+@import url('footer.css');
+@import url('animation.css');
+
+/* notification style */
+header .navbar ul li .material-icons {
+    font-size: 2rem;
+}
+/* account style */
+header .navbar ul li img{
+    width: 2rem;
+    height: 2rem;
+    border-radius: 50%;
+}
+
+/* footer */
+.footer{
+    position: fixed;
+    bottom: 0;
+    z-index: 1;
+    transition: 1s ease-in-out;
+}
+.footer.hide{
+    opacity: 0;
+    height: 0;
+}
+
+/* 공통 스타일 */
+.bottom-line{
+    border-bottom: 1px solid #eee;
+}
+.padding{
+    padding: 2rem 0;
+}
+
+/* content */
+.blog-container{
+    width: 50vw;
+    margin: 0 auto;
+}
+
+/*팔로워/ 팔로잉 */
+.blog-container .follow ul{
+    display: flex;
+    flex-wrap: wrap;
+}
+.blog-container .follow ul li{
+    padding-right: 1.2rem;
+    font-size: 1.2rem;
+}
+.blog-container .follow ul li a {
+    padding-right: 0.3rem;
+    color: var(--primary-color);
+    cursor: pointer;
+}
+.blog-container .follow ul li a:hover{
+    text-decoration: underline;
+}
+
+/* my-blog */
+/* blog list */
+.blog-container{
+    width: 50vw;
+    margin: auto;
+}
+.blog-container .blog{
+    display: flex;
+    flex-wrap: wrap;
+    flex-flow: column-reverse;
+    padding: 2rem 1rem;
+    margin-bottom: 2.5rem;
+    box-shadow: 0 0 0.2rem rgba(0, 0, 0, 0.3);
+}
+.blog-container .blog > div > ul{
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+}
+.blog-container .blog .left,
+.blog-container .blog .right{
+    width: 100%;
+    min-width: 100%;
+    opacity: 1;
+    transform: none;
+    /* border: 1px solid red; */
+}
+.blog-container .blog .left .posting-time{
+    margin-top: 1rem;
+    margin-bottom: 0.3rem;
+    color: #aaa;
+}
+.blog-container .blog .left .category-name a{
+    color: var(--primary-color);
+}
+.blog-container .blog .left .category-name a:hover{
+    color: var(--secondary-color);
+    text-decoration: underline;
+}
+.blog-container .blog .left .likes{
+    margin-right: 0.5rem;
+}
+.blog-container .blog .left span{
+    color: var(--primary-color);
+}
+.blog-container .blog .middle{
+    flex-grow: 1;
+    padding: 0rem 0rem;
+    margin: 2rem 0;
+}
+.blog-container .blog .middle > ul h3{
+    font-weight: 700;
+    font-size: 1.5rem;
+}
+.blog-container .blog .middle > ul p{
+    padding: 1rem 0;
+    line-height: 1.3rem;
+    font-size: 1rem;
+    color: gray;
+}
+.blog-container .blog .middle .account{
+    display: flex;
+    align-items: center;
+}
+.blog-container .blog .middle .account img{
+    width: 2rem;
+    height: 2rem;
+    margin-right: 0.5rem;
+    border-radius: 50%;
+    cursor: pointer;
+    object-fit: cover;
+}
+.blog-container .blog .middle .account span{
+    color: #bbb;
+    font-size: 0.9rem;
+    margin-left: 0.5rem;
+}
+.blog-container .blog .middle > ul ul{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+.blog-container .blog .middle > ul ul button{
+    border: 2px solid #eee;
+    border-radius: 1rem;
+    background-color: #fff;
+    color: #333;
+    width: 5rem;
+    height: 2rem;
+    cursor: pointer;
+    transition: 0.2s;
+}
+.blog-container .blog .middle > ul ul button:hover{
+    box-shadow: 0 0 0.2rem rgba(255, 255, 255, 0.3);
+    background-color: #bbb;
+}
+
+.blog-container .blog .right ul,
+.blog-container .blog .right ul li{
+    height: 100%;
+}
+.blog-container .blog .right ul li img{
+    height: 100%;
+    width: 100%;
+    object-fit: cover;
+    object-position: center;
+}
+/* 블로그 수평 정렬 */
+.blog-container > div:not(.follow){ /*내부에있는 버튼 정렬하기 위함*/
+    position: relative;
+}
+.blog-container > div:not(.follow) > ul{
+    display: flex;
+}
+.blog-container > div:not(.follow) > ul > li:nth-child(2){
+    margin: 0 2rem;
+}
+.blog-container >div:not(.follow) > h3{
+    font-size: 2rem;
+    margin-bottom: 2rem;
+}
+.blog-container > div:not(.follow) > a button{
+    width: 5rem;
+    height: 2rem;
+    color: #fff;
+    cursor: pointer;
+    border: none;
+    background: #333;
+    box-shadow: 0 0 0.3rem rgba(255, 255, 255, 0.3);
+    position: absolute;
+    bottom: 1.5rem;
+    right: 0;
+    transition: 0.2s;
+}
+.blog-container > div:not(.follow) > a button:hover{
+    background-color: var(--secondary-color);
+    box-shadow: none;
+}
+@media(max-width: 1300px){
+    .blog-container{
+        width: 65vw;
+    }
+}
+@media(max-width:920px){
+    .blog-container{
+        width:80vw
+    }
+    .blog-container > div:not(.follow) > ul > li:nth-child(2){
+        margin: 0 0rem;
+    }
+    
+    .blog-container > div:not(.follow) > ul{
+        flex-flow: column;
+    }
+}
+@media(max-width:550px){
+    .footer .icons{
+        padding: 1rem;
+    }
+    .footer .icons .scroll-up{
+        margin-right: 0.2rem;
+    }
+    .blog-container >div:not(.follow) > h3{
+        font-size: 1.5rem;
+        margin-bottom: 1.5rem;
+    }
+}
+@media(max-width:420px){
+    header{
+        padding: 1rem 1rem;
+    }
+    .blog-container{
+        width: 90vw;
+    }
+}
+@media(max-width:300px){
+    header{
+        padding: 0.5rem 0.5rem;
+    }
+    header .logo{
+        font-size: 1rem;
+    }
+    header .icon i{
+        font-size: 2rem;
+    }
+    header .navbar ul li{
+        margin: 0 0.5rem;
+    }
+    .blog-container >div:not(.follow) > h3{
+        font-size: 1rem;
+        margin-bottom: 1rem;
+    }
+
+}
+
