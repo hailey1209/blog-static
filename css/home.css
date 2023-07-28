@@ -8,11 +8,32 @@
 header .navbar ul li .material-icons {
     font-size: 2rem;
 }
+header .navbar ul{
+    position: relative;
+}
+
 /* account style */
 header .navbar ul li img{
     width: 2rem;
     height: 2rem;
     border-radius: 50%;
+}
+
+/* 글쓰기 버튼 */
+header .navbar ul li a button{
+    width: 5rem;
+    height: 2rem;
+    background-color: var(--primary-color);
+    color: #fff;
+    border: none;
+    border-radius: 2rem;
+    cursor: pointer;
+    font-size: .9rem;
+    transition: 0.2s;
+}
+header .navbar ul li a button:hover{
+    background-color: var(--secondary-color);
+    letter-spacing: .1rem;
 }
 
 /* footer */

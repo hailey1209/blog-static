@@ -37,7 +37,7 @@ window.addEventListener("load", (event) => {
   // 스크롤 애니메이션 적용
   window.addEventListener('scroll', (e) => {
     sections.forEach(section => {
-        console.log(section, section.getBoundingClientRect().top, header.offsetHeight)
+        // console.log(section, section.getBoundingClientRect().top, header.offsetHeight)
 
         //해당 섹션이 헤더에 가까워지면 애니메이션 적용하기
         if(section.getBoundingClientRect().top < header.offsetHeight + 200){

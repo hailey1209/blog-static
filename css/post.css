@@ -1,0 +1,34 @@
+@import url('reset.css');
+@import url('global.css');
+@import url('header.css');
+@import url('footer.css');
+
+/* 헤더 */
+header .navbar ul li .material-icons{ /* 종모양 스타일링 추가 */
+    font-size: 2rem;
+  }
+header .navbar ul li .account img{ /* 아바타 스타일링 추가 */
+    width: 2rem;
+    height: 2rem;
+    border-radius: 50%;
+}
+
+/* tool-box */
+header .toolbox{
+    display: flex;
+    flex-wrap: wrap;
+}
+header .toolbox > div {
+    border-right: 2px solid #bbb;
+    padding: 0 0.5rem;
+}
+header .toolbox > div > a {
+    margin: 0 .2rem;
+    transition: 0.3s;
+}
+header .toolbox > div > a:hover{
+    color: var(--primary-color);
+}
+header .toolbox > div > a label{
+    cursor: pointer;
+}
