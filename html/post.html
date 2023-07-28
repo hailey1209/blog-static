@@ -70,6 +70,33 @@
         </div>
     </header>
 
+    <!-- 블로그 편집기 -->
+    <section class="post-container">
+        <div class="post-category">
+            <select name="category" id="category">
+                <option value="">category</option>
+                <option value="맛집">맛집</option>
+                <option value="라이프">라이프</option>
+                <option value="IT">IT</option>
+                <option value="연애">연애</option>
+                <option value="시사">시사</option>
+            </select>
+        </div>
+        <div class="post-title">
+            <input type="text" placeholder="제목을 입력하세요.">
+        </div>
+        <div class="post-contents" contenteditable></div>
+        <div class="post-tags">
+            <ul>
+                <li>#<input type="text" placeholder="태그입력"></li>
+            </ul>
+        </div>
+    </section>
+
+    <!-- 파일처리 섹션 -->
+    <section class="upload hidden">
+        <input type="file" id="post-files" name="post-files" multiple>
+    </section>
     <script src="./js/scroll.js"></script>
     <script src="../js/post.js"></script>
 </body>
