@@ -134,3 +134,10 @@ header .toolbox > div > a label{
 .hidden{
     display: none;
 }
+
+/* dark mode */
+.post-container .post-title input.dark,
+.post-container .post-contents textarea.dark,
+.post-container .post-tags input.dark{
+    background-color: #333;
+}
