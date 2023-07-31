@@ -55,7 +55,9 @@ window.addEventListener("load", (event) => {
   })
 
   //파일 입력 처리
-  let lastCaretLine = null //caret : cursor (커서 위치의 엘리먼트)
+  postContents.focus()//첫 로딩때 커서 보이기
+  postContents.insertAdjacentElement("afterbegin", createNewLine())//포스트 편집기 내부의 첫번째줄을 생성
+  let lastCaretLine = postContents.firstChild //caret : cursor (커서 위치의 엘리먼트)
   const uploadInput = document.querySelector('.upload input')
   uploadInput.addEventListener('change', function(event){
     const files = this.files
@@ -99,7 +101,6 @@ window.addEventListener("load", (event) => {
     //편집기가 블러될때 마지막 커서 위치에있는 엘리먼트
     lastCaretLine = document.getSelection().anchorNode
     console.log(lastCaretLine.parentNode, lastCaretLine, lastCaretLine.length)
-    
   })
 })
 // 공백라인(공백 엘리먼트) 생성
