@@ -22,16 +22,17 @@ header .toolbox > div {
     border-right: 2px solid #bbb;
     padding: 0 0.5rem;
 }
-header .toolbox > div > a {
+header .toolbox > div  a {
     margin: 0 .2rem;
     transition: 0.3s;
 }
-header .toolbox > div > a:hover{
+header .toolbox > div  a:hover{
     color: var(--primary-color);
 }
 header .toolbox > div > a label{
     cursor: pointer;
 }
+
 
 /* 블로그 편집기 */
 .post-container{
@@ -76,7 +77,7 @@ header .toolbox > div > a label{
 
 /*파일업로드시 적용할 스타일*/
 .post-container img,
-.post-contents .vedio-file{
+.post-contents .video-file{
     max-width: 100%;  /*이미지, 비디오 파일의 너비가 편집기를 벗어나지 않도록 함*/
 }
 .post-contents .audio-file{
@@ -141,3 +142,70 @@ header .toolbox > div > a label{
 .post-container .post-tags input.dark{
     background-color: #333;
 }
+
+/* 드롭다운 메뉴 */
+.select-menu{
+    max-width: 2rem;
+    display: inline-flex;
+    flex-flow: column;
+    align-items: center;
+    position: relative; /*컨테이너 기준으로 드롭다운 메뉴*/
+  }
+
+.select-menu-dropdown{
+    background-color: white;
+    position: absolute;
+    top: 45px; /*아이콘 높이*/
+    border: 1px solid #ddd;
+    padding: 1rem;
+    display: none;
+  }
+  .select-menu-dropdown.show{
+    display: block;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  /* 색상 드롭 다운 */
+  .color-box{
+    width: 10rem;
+  }
+  .color-box.show{
+    flex-wrap: wrap;
+  }
+  .color-box span{
+    width: 1.5rem;
+    height: 1.5rem;
+    border-radius: 50%;
+    margin: 0.2rem;
+    cursor: pointer;
+    flex: 0 0 auto; /*요소의 크기가 늘어나거나 줄어들지 않음(원래 크기 유지)*/
+  }
+.select-menu-dropdown::before{
+    content: '';
+    width: 1.4rem;
+    height: 1.4rem;
+    background-color: white;
+    border: 1px solid #ddd;
+    border-right: none;
+    border-bottom: none;
+    position: absolute;
+    top: -0.7rem;
+    left: 50%;
+    transform: translateX(-50%) rotateZ(45deg);
+  }
+  /* 텍스트 드롭다운 */
+  .font-box{
+    width: 12rem;
+  }
+  .font-box.show{
+    flex-direction: column-reverse;
+  }
+  .font-box span{
+    width: 100%;
+    padding: 0.5rem;
+    cursor: pointer;
+  }
+  .font-box span:hover{
+    background-color: #eee;
+  }

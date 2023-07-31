@@ -55,7 +55,9 @@ window.addEventListener("load", (event) => {
   })
 
   //파일 입력 처리
-  let lastCaretLine = null //caret : cursor (커서 위치의 엘리먼트)
+  postContents.focus()//첫 로딩때 커서 보이기
+  postContents.insertAdjacentElement("afterbegin", createNewLine())//포스트 편집기 내부의 첫번째줄을 생성
+  let lastCaretLine = postContents.firstChild //caret : cursor (커서 위치의 엘리먼트)
   const uploadInput = document.querySelector('.upload input')
   uploadInput.addEventListener('change', function(event){
     const files = this.files
@@ -66,19 +68,42 @@ window.addEventListener("load", (event) => {
             const fileType = file.type
             console.log(fileType)
 
-            if(fileType.includes('image')){
+            if(fileType.includes('image')){ //이미지 파일 프리뷰 보여주기
                 console.log('image')
-                const img = document.createElement('img')
-                img.src = URL.createObjectURL(file) //파일의 임시경로 생성
+                const img= bulidMediaElement(img, {src: URL.createObjectURL(file)})
                 //편집기의 마지막 커서위치에 파일 추가
                 lastCaretLine = addFileToCurrentLine(lastCaretLine, img)
 
-            }else if(fileType.includes('video')){
+            }else if(fileType.includes('video')){  // 비디오 파일 프리뷰 보여주기
                 console.log('video')
-            }else if(fileType.includes('audio')){
+                const video = bulidMediaElement(video, {
+                                                className: video-name, 
+                                                controls: true, 
+                                                src: URL.createObjectURL(file)})
+                lastCaretLine = addFileToCurrentLine(lastCaretLine, video)
+
+            }else if(fileType.includes('audio')){ //오디오 파일 프리뷰
                 console.log('audio')
-            }else{
-                console.log('file')
+                const audio = bulidMediaElement(audio, {
+                                                className: audio-file, 
+                                                controls: true, 
+                                                src: URL.createObjectURL(file)})
+                lastCaretLine = addFileToCurrentLine(lastCaretLine, audio)
+            }else{ //파일 프리뷰 
+                console.log('file', file.name, file.size)
+                const div = bulidMediaElement(div, {
+                                              className: normal-file,
+                                              contentEditable: false,
+                                              innerHTML: `
+                                              <div class="file-icon">
+                                                <span class="material-icons">folder</span>
+                                              </div>
+                                              <div class="file-info">
+                                                <h3>${getFileName(file.name, 70)}</h3>
+                                                <p>${getFileSize(file.size)}</p>
+                                              </div>`
+                })
+                lastCaretLine = addFileToCurrentLine(lastCaretLine, div) //에디터에 파일 추가 및 파일이 추가될때마다 커서위치 업데이트하기
             }
         }
 
@@ -99,7 +124,66 @@ window.addEventListener("load", (event) => {
     //편집기가 블러될때 마지막 커서 위치에있는 엘리먼트
     lastCaretLine = document.getSelection().anchorNode
     console.log(lastCaretLine.parentNode, lastCaretLine, lastCaretLine.length)
-    
+  })
+
+  // 텍스트 포멧
+  const textTool = document.querySelector('.text-tool')
+  const colorbox = document.querySelectorAll('.text-tool .color-box')
+  const fontBox =document.querySelector('.text-tool .font-box')
+
+  textTool.addEventListener('click', function(e){
+    e.stopPropagation() //document 클릭 이벤트와 충돌하지 않도록 설정
+    console.log(e.target)
+    switch(e.target.innerText){
+      case 'format_bold':
+        changeTextFormat('bold') //사용자가 선택한 텍스트가 볼드체로 변경
+        break
+      case 'format_italic':
+        changeTextFormat('italic')
+        break
+      case'format_underlined':
+      changeTextFormat('underline')
+        break
+      case 'format_strikethrough':
+        changeTextFormat('strikeThrough')
+        break
+      case 'format_color_text':
+        changeTextFormat('foreColor', 'orange')
+        hideDropdown(textTool, 'format_color_text')
+        colorbox[0].classList.toggle('show')
+        break
+      case 'format_color_fill':
+        changeTextFormat('backColor', 'black')
+        hideDropdown(textTool, 'format_color_fill')
+        colorbox[1].classList.toggle('show')
+        break
+      case 'format_size':
+        changeTextFormat('fontSize', 7)
+        hideDropdown(textTool, 'format_size')
+        fontBox.classList.toggle('show')
+        break
+    }
+    postContents.focus({preventScroll: true}) //커서 설정
+  })
+
+  // 텍스트 정렬
+  const alignTool = document.querySelector('.align-tool')
+  alignTool.addEventListener('click', function(e){
+    console.log(e.target.innerText)
+    switch(e.target.innerText){
+      case 'format_align_left':
+        changeTextFormat('justifyLeft')
+        break
+      case 'format_align_center':
+        changeTextFormat('justifyCenter')
+        break
+      case 'format_align_right':
+        changeTextFormat('justifyRight')
+        break
+      case 'format_align_justify':
+        changeTextFormat('justifyFull')
+        break
+    }
   })
 })
 // 공백라인(공백 엘리먼트) 생성
@@ -119,3 +203,55 @@ function addFileToCurrentLine(line, file){
     line.nextSibling.insertAdjacentElement('afterend', createNewLine())
     return line.nextSibling.nextSibling //파일 하단에 위치한 공백라인
 }
+
+// 
+function getFileName(name, limit){
+  console.log(name.slice(0,limit))
+  // conslog.log(name.lastIndexOf('.'), name.length)
+  return name.length > limit ? 
+  `${name.slice(0,limit)}...${name.lastIndexOf('.'), name.length}`
+  : name
+}
+
+// number: 파일 용량(bytes)
+function getFileSize(number){
+  if(number < 1024){
+    return number + 'bytes'  //바이트
+  }else if(number >= 1024 && number < 1048576){
+    return (number/1024).toFixed(1) + 'KB'  //키로바이트
+  }else if(number >= 1048576){
+    return (number/1048576).toFixed(1) + 'MB'  //메가바이트
+  }
+}
+
+// options = {className: 'audio', controls: 'true'}, 파일 업로드 기능 기본 함수
+function bulidMediaElement(tag, options){
+  const mediaElement = document.createElement(tag)
+  for(const option of options){ //생성한 엘리먼트에 속성을 설정
+    mediaElement[option] = options[option]
+  }
+  return mediaElement
+}
+
+function changeTextFormat(style, param){
+  console.log(style)
+  document.execCommand(style, false, param)
+}
+
+function hideDropdown(toolbox, currentDropdown){
+  //현재 텍스트툴 요소 안쪽에서 열려있는 드롭다운 메뉴 조회
+  const dropdown = toolbox.querySelector('.select-menu-dropdown.show')
+  if(dropdown && dropdown.parentElement.querySelector('a span').innerText !== currentDropdown ){
+    dropdown.classList.remove('show')
+    console.log(currentDropdown)
+    console.log(dropdown.parentElement)
+  }
+}
+
+document.addEventListener('click', function(e){
+  //현재 열려있는 드롭다운 조회
+  const dropdown = document.querySelector('.select-menu-dropdown.show')
+  if(dropdown && !dropdown.contains(e.target)){
+    dropdown.classList.remove('show')
+  }
+})
