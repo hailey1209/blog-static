@@ -76,7 +76,7 @@ header .toolbox > div > a label{
 
 /*파일업로드시 적용할 스타일*/
 .post-container img,
-.post-contents .vedio-file{
+.post-contents .video-file{
     max-width: 100%;  /*이미지, 비디오 파일의 너비가 편집기를 벗어나지 않도록 함*/
 }
 .post-contents .audio-file{

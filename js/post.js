@@ -68,19 +68,42 @@ window.addEventListener("load", (event) => {
             const fileType = file.type
             console.log(fileType)
 
-            if(fileType.includes('image')){
+            if(fileType.includes('image')){ //이미지 파일 프리뷰 보여주기
                 console.log('image')
                 const img = document.createElement('img')
                 img.src = URL.createObjectURL(file) //파일의 임시경로 생성
                 //편집기의 마지막 커서위치에 파일 추가
                 lastCaretLine = addFileToCurrentLine(lastCaretLine, img)
 
-            }else if(fileType.includes('video')){
+            }else if(fileType.includes('video')){  // 비디오 파일 프리뷰 보여주기
                 console.log('video')
-            }else if(fileType.includes('audio')){
+                const video = document.createElement('video')
+                video.className = 'video-name'
+                video.controls = true
+                video.src = URL.createObjectURL(file) //비디오 파일임시경로 생성
+                lastCaretLine = addFileToCurrentLine(lastCaretLine, video)
+
+            }else if(fileType.includes('audio')){ //오디오 파일 프리뷰
                 console.log('audio')
-            }else{
-                console.log('file')
+                const audio =document.createElement('audio')
+                audio.className = 'audio-file'
+                audio.controls = true
+                audio.src = URL.createObjectURL(file) //파일 임시 경로 
+                lastCaretLine = addFileToCurrentLine(lastCaretLine, audio)
+            }else{ //파일 프리뷰 
+                console.log('file', file.name, file.size)
+                const div = document.createElement('div')
+                div.className = 'normal-file'
+                div.contentEditable = false  //텍스트 파일 컨테이너에 contentEditable 설정이 되있기 때문에 편집이 되지 않도록 막아줌
+                div.innerHTML = `
+                                <div class="file-icon">
+                                  <span class="material-icons">folder</span>
+                                </div>
+                                <div class="file-info">
+                                  <h3>${getFileName(file.name, 70)}</h3>
+                                  <p>${getFileSize(file.size)}</p>
+                                </div>`
+                lastCaretLine = addFileToCurrentLine(lastCaretLine, div) //에디터에 파일 추가 및 파일이 추가될때마다 커서위치 업데이트하기
             }
         }
 
@@ -119,4 +142,24 @@ function addFileToCurrentLine(line, file){
     line.nextSibling.insertAdjacentElement('afterbegin', file)
     line.nextSibling.insertAdjacentElement('afterend', createNewLine())
     return line.nextSibling.nextSibling //파일 하단에 위치한 공백라인
+}
+
+// 
+function getFileName(name, limit){
+  console.log(name.slice(0,limit))
+  // conslog.log(name.lastIndexOf('.'), name.length)
+  return name.length > limit ? 
+  `${name.slice(0,limit)}...${name.lastIndexOf('.'), name.length}`
+  : name
+}
+
+// number: 파일 용량(bytes)
+function getFileSize(number){
+  if(number < 1024){
+    return number + 'bytes'  //바이트
+  }else if(number >= 1024 && number < 1048576){
+    return (number/1024).toFixed(1) + 'KB'  //키로바이트
+  }else if(number >= 1048576){
+    return (number/1048576).toFixed(1) + 'MB'  //메가바이트
+  }
 }
