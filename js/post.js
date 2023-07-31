@@ -130,8 +130,11 @@ window.addEventListener("load", (event) => {
   const textTool = document.querySelector('.text-tool')
   const colorbox = document.querySelectorAll('.text-tool .color-box')
   const fontBox =document.querySelector('.text-tool .font-box')
+  const toolBox = document.querySelector('.toolbox')
+
 
   textTool.addEventListener('click', function(e){
+    e.preventDefault()
     e.stopPropagation() //document 클릭 이벤트와 충돌하지 않도록 설정
     console.log(e.target)
     switch(e.target.innerText){
@@ -148,23 +151,27 @@ window.addEventListener("load", (event) => {
         changeTextFormat('strikeThrough')
         break
       case 'format_color_text':
-        changeTextFormat('foreColor', 'orange')
-        hideDropdown(textTool, 'format_color_text')
+        // changeTextFormat('foreColor', 'orange')
+        hideDropdown(toolBox, 'format_color_text')
         colorbox[0].classList.toggle('show')
         break
       case 'format_color_fill':
-        changeTextFormat('backColor', 'black')
-        hideDropdown(textTool, 'format_color_fill')
+        // changeTextFormat('backColor', 'black')
+        hideDropdown(toolBox, 'format_color_fill')
         colorbox[1].classList.toggle('show')
         break
       case 'format_size':
-        changeTextFormat('fontSize', 7)
-        hideDropdown(textTool, 'format_size')
+        // changeTextFormat('fontSize', 7)
+        hideDropdown(toolBox, 'format_size')
         fontBox.classList.toggle('show')
         break
     }
-    postContents.focus({preventScroll: true}) //커서 설정
+    
   })
+
+  colorbox[0].addEventListener('click', (e)=>changeColor(e, 'foreground'))
+  colorbox[1].addEventListener('click', (e)=>changeColor(e, 'background'))
+  fontBox.addEventListener('click', changeFontSize)
 
   // 텍스트 정렬
   const alignTool = document.querySelector('.align-tool')
@@ -185,6 +192,29 @@ window.addEventListener("load", (event) => {
         break
     }
   })
+
+  //이모지
+  const linkTool =document.querySelector('.link-tool')
+  const imoticonBox =document.querySelector('.link-tool .imoticon-box')
+
+  linkTool.addEventListener('click', function(e){
+    e.stopPropagation()
+    console.log(e.target.innerText)
+    switch(e.target.innerText){
+      case 'sentiment_satisfied':
+        hideDropdown(toolBox, 'sentiment_satisfied')
+        imoticonBox.classList.toggle('show')
+        break
+      case 'table_view':
+        break
+      case 'link':
+        break
+      case 'format_list_bulleted':
+        break
+    }
+  })
+  imoticonBox.addEventListener('click', addImoticon)
+
 })
 // 공백라인(공백 엘리먼트) 생성
 function createNewLine(){
@@ -236,6 +266,7 @@ function bulidMediaElement(tag, options){
 function changeTextFormat(style, param){
   console.log(style)
   document.execCommand(style, false, param)
+  // postContents.focus({preventScroll: true}) //커서 설정
 }
 
 function hideDropdown(toolbox, currentDropdown){
@@ -255,3 +286,37 @@ document.addEventListener('click', function(e){
     dropdown.classList.remove('show')
   }
 })
+
+function changeColor(e, mode){
+  e.stopPropagation() //상위 요소로 클릭 이벤트 버블링 되지 않게함
+
+  if(!e.target.classList.contains('select-menu-dropdown')){
+    console.log(mode, e.target)
+    switch(mode){
+      case 'foreground':
+        changeTextFormat('foreColor', e.target.style.backgroundColor) //글자색 변경
+        break
+      case 'background':
+        changeTextFormat('backColor', e.target.style.backgroundColor) //배경색 변경
+        break
+    }
+    e.target.parentElement.classList.remove('show') //드롭다운 창 닫기
+  }
+}
+
+function changeFontSize(e){
+  e.stopPropagation()
+  if(!e.target.classList.contains('select-menu-dropdown')){
+    changeTextFormat('fontSize', e.target.id) // 폰트크기 변경
+    e.target.parentElement.classList.remove('show') // 드롭다운 메뉴 숨기기
+  }
+}
+
+function addImoticon(e){
+  e.stopPropagation()
+  console.log(e.target)
+  if(!e.target.classList.contains('select-menu-dropdown')){
+    changeTextFormat('insertText', e.target.innerText)
+    e.target.parentElement.classList.remove('show')
+  }
+}

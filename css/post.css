@@ -159,6 +159,7 @@ header .toolbox > div > a label{
     border: 1px solid #ddd;
     padding: 1rem;
     display: none;
+    user-select: none; /*현재 편집기에 선책된 영역이 클릭한 위치로 바뀌지 않도록 방지*/
   }
   .select-menu-dropdown.show{
     display: block;
@@ -199,13 +200,28 @@ header .toolbox > div > a label{
     width: 12rem;
   }
   .font-box.show{
-    flex-direction: column-reverse;
+    flex-direction: column;
   }
   .font-box span{
     width: 100%;
     padding: 0.5rem;
     cursor: pointer;
+    color: black; /*다크모드*/
   }
   .font-box span:hover{
     background-color: #eee;
+  }
+
+  /* 이모티콘 드롭다운 */
+.imoticon-box{
+    width: 12rem;
+  }
+.imoticon-box span{
+    font-size: 1.5rem;
+    margin: .2rem;
+    cursor: pointer;
+    flex: 0 0 auto;
+  }
+.imoticon-box.show{
+    flex-wrap: wrap;
   }
